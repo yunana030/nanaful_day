@@ -68,11 +68,21 @@ body {
 .nav-link:hover { color: var(--vibrant-yellow); }
 
 .btn-resume {
-  background-color: var(--vibrant-yellow); border: none; cursor: pointer;
-  padding: 0 1.5rem; height: 2.5rem; border-radius: 9999px;
-  font-weight: 700; box-shadow: 0 10px 15px -3px rgba(251, 218, 141, 0.2);
+  background-color: var(--vibrant-yellow); 
+  border: none; 
+  cursor: pointer;
+  padding: 0 1.5rem; 
+  height: 2.5rem; 
+  border-radius: 9999px;
+  font-weight: 700; 
+  box-shadow: 0 10px 15px -3px rgba(251, 218, 141, 0.2);
   transition: transform 0.2s;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  text-decoration: none;
+  text-decoration: none;
+  color: inherit;
 }
 .btn-resume:hover { transform: scale(1.05); }
 
@@ -105,9 +115,14 @@ body {
 }
 .badge-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background-color: var(--vibrant-yellow); position: relative; }
 
-.hero-title { font-size: 3.125rem; font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin: 1.25rem 0; }
-@media (min-width: 768px) { .hero-title { font-size: 4.5rem; } }
-.gradient-text { background: linear-gradient(to right, #d9a406, #7dbb34); -webkit-background-clip: text; color: transparent; }
+.hero-title { 
+  font-size: 3.125rem; 
+  font-weight: 900; 
+  line-height: 1.05; 
+  letter-spacing: -0.02em; 
+  margin: 1.25rem 0; }
+@media (min-width: 768px) { .hero-title { font-size: 3.5rem; } }
+.gradient-text { background: linear-gradient(to right, #d9a406, #7dbb34);-webkit-background-clip: text; color: transparent; }
 
 /* --- 플로팅 카드 일체 --- */
 .hero-visual-area { position: relative; height: 450px; width: 100%; display: flex; align-items: center; justify-content: center; }
@@ -204,6 +219,8 @@ body {
   box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
   transition: all 0.5s;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 /* --- 프로젝트 카드 등장 애니메이션 설정 --- */
@@ -262,7 +279,13 @@ body {
 .contact-item.github { background-color: var(--vibrant-blue); color: #1e4a63; }
 
 .contact-label { font-size: 10px; font-weight: 900; letter-spacing: 0.2em; opacity: 0.6; }
-.contact-value { font-size: 0.875rem; font-weight: 700; }
+.contact-value { 
+  font-size: 0.875rem; 
+  font-weight: 700; 
+  text-decoration: none;
+  color: inherit;
+
+}
 
 .icon-circle {
   width: 3.5rem; height: 3.5rem; border-radius: 0.75rem; background-color: rgba(255, 255, 255, 0.4);
@@ -304,14 +327,23 @@ body {
 
 /* 스킬 태그 컬러링 */
 .skill-spring { background: rgba(196, 222, 159, 0.2); color: #7dbb34; }
-.skill-eclipse { background: rgba(145, 209, 244, 0.2); color: #4a97c2; }
+.skill-django { background: rgba(157, 213, 179, 0.2); color: #3d9970; }
+.skill-react { background: rgba(143, 205, 226, 0.2); color: #3a9bbf; }
+.skill-js { background: rgba(245, 246, 123, 0.2); color: #d9c715; }
+.skill-python { background: rgba(190, 175, 214, 0.2); color: #8e5ea7; }
+.skill-java { background: rgba(245, 150, 123, 0.2); color: #e25c2d; }
+.skill-html { background: rgba(191, 225, 249, 0.2);  color: #ADD6F6; }
+.skill-mysql { background: rgba(145, 223, 215, 0.2); color: #31a5a1; }
 .skill-figma { background: rgba(255, 184, 209, 0.2); color: #e06c94; }
-.skill-notion { background: rgba(251, 218, 141, 0.2); color: #d9a406; }
-.skill-github { background: rgba(24, 23, 17, 0.05); color: var(--text-main); }
+.skill-github { background: rgba(218, 99, 226, 0.2); color: #a266a9; }
+.skill-notion { background: rgba(249, 218, 141, 0.2); color: #d9a406; }
+.skill-oracle { background: rgba(140, 224, 192, 0.2); color: #6de990; }
+
+
 
 /* 프로젝트 카드 개별 배경 (필요시 교체) */
-.project-1 { background-image: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%), url('https://picsum.photos/400/500?random=1'); }
-.project-2 { background-image: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%), url('https://picsum.photos/400/500?random=2'); }
+.project-1 { background-image: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%), url('assets/images/KODEHUN_main2.png'); }
+.project-2 { background-image: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%), url('assets/images/Frame\ 22.png'); }
 .project-3 { background-image: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%), url('https://picsum.photos/400/500?random=3'); }
 
 /* 프로젝트 텍스트 컬러 */
