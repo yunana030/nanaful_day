@@ -21,18 +21,13 @@
 html, body {
   width: 100%;
   height: 100%;
-  overflow: hidden; /* 원페이지 스크롤 방지 */
+  overflow: hidden;
 }
 
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   color: var(--text-main);
-  background-color: var(--background-light);
-  background-image: url('assets/images/back.png'); /* 👈 배경 이미지 완벽 복구 */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background: var(--background-light) url('assets/images/back.png') no-repeat center / cover fixed;
 }
 
 .page-wrapper {
@@ -43,57 +38,105 @@ body {
 }
 
 /* ==========================================
-   3. 배경 데코 레이어 (Bird, Cat
+   3. 배경 데코 레이어
    ========================================== */
 .bg-deco-left {
-  position: fixed;
-  z-index: 1;
-  top: 15%; 
-  right: 28%;
-  width: 300px;  
-  height: 350px;
-  background-image: url('assets/images/bluebird.png');
-  background-repeat: no-repeat;
-  background-size: contain; 
-  background-position: center;
+  position: fixed; z-index: 1;
+  top: 15%; right: 38%;
+  width: 300px; height: 350px;
+  background: url('assets/images/bluebird.png') no-repeat center / contain;
   pointer-events: none;
+
+  cursor: pointer;            /* 마우스 올리면 손가락 모양으로 */
+  pointer-events: auto !important; /* 클릭이 가능하도록 활성화 */
+  
+  /* ✨ 눈에 띄게 반짝이는 효과 추가 */
+  filter: drop-shadow(0 0 8px rgba(145, 209, 244, 0.5));
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
+.bg-deco-left:hover {
+  transform: scale(1.1) rotate(-5deg); /* 호버 시 움찔 */
+  filter: drop-shadow(0 0 15px rgba(145, 209, 244, 0.8));
+}
+
+/* 파랑새 머리 위 말풍선 */
+.bird-msg {
+  position: absolute;
+  top: -10px;    /* 새 머리 위쪽 위치 */
+  left:30%;
+  transform: translateX(-50%);
+  
+  background: white;
+  color: #55acee; /* 파랑새와 어울리는 하늘색 */
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  white-space: nowrap;
+  
+  /* 그림자와 테두리 */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border: 2px solid #e1f5fe;
+  
+  /* 부드러운 등장 애니메이션 */
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: birdTalk 2s infinite ease-in-out;
+  pointer-events: none; /* 글자가 클릭을 방해하지 않게 */
+}
+
+/* 말풍선 꼬리 */
+.bird-msg::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: white;
+}
+
+/* 파랑새 호버 시 말풍선 반응 */
+.bg-deco-left:hover .bird-msg {
+  transform: translateX(-50%) translateY(-10px) scale(1.1);
+  background: #55acee;
+  color: white;
+  border-color: #55acee;
+}
+.bg-deco-left:hover .bird-msg::after {
+  border-top-color: #55acee;
+}
+
+/* 말풍선 둥둥 떠 있는 효과 */
+@keyframes birdTalk {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-5px); }
+}
+
+/* ======================= */
 .bg-deco-right {
-  position: fixed;
-  z-index: -1;
-  top: 9%; right: 5%;
-  width: 500px; 
-  height: 450px;
-  background-image: url('assets/images/window_cat.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  pointer-events: none;
+  position: fixed; z-index: -1;
+  top: 14%; right: 15%;
+  width: 500px; height: 450px;
+  background: url('assets/images/window_cat.png') no-repeat center / 100% 100%;
   filter: drop-shadow(0 25px 15px rgba(0, 0, 0, 0.15));
+  pointer-events: none;
 }
 
 /* ==========================================
-   4. 히어로 섹션 & 텍스트 & 버튼
+   4. 히어로 섹션 (Text & Buttons)
    ========================================== */
 .hero-wrapper {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  padding: 0 5rem;
-  position: relative;
+  flex: 1; display: flex; align-items: center;
+  padding: 0 5rem; position: relative;
 }
 
 .hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: center;
-  width: 100%;
-  max-width: 2560px; /* 👈 와이드 대응 */
-  margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 3rem; align-items: center;
+  width: 100%; max-width: 2560px; margin: 0 auto;
 }
 
-/* 뱃지 & 버튼 (유나님 원본 디자인용) */
 .hire-badge {
   display: inline-flex; align-items: center; gap: 0.5rem;
   padding: 0.5rem 1rem; background: white; border-radius: 99px;
@@ -110,48 +153,122 @@ body {
   font-weight: 700; text-decoration: none; transition: 0.3s;
   cursor: pointer; border: none;
 }
-.btn-hero-primary { background: var(--vibrant-yellow); color: #5c4a00; }
-.btn-hero-secondary { background: white; border: 2px solid var(--custom-accent); color: var(--text-main); margin-left: 1rem; }
-.btn-skills-magic { background: white; border: 2px solid #FBDA8D; margin-left: 1rem; animation: colorPulse 2s infinite; }
+.btn-skills-magic { background: white; border: 2px solid #FBDA8D; animation: colorPulse 2s infinite; }
 
 .hero-title { font-size: 3.5rem; font-weight: 900; line-height: 1.05; margin: 1.25rem 0; }
 .gradient-text { background: linear-gradient(to right, #d9a406, #7dbb34); -webkit-background-clip: text; color: transparent; }
 .hero-desc { font-size: 1.25rem; opacity: 0.7; margin-bottom: 2rem; max-width: 32rem; }
 
 /* ==========================================
-   5. 플로팅 이미지 카드 (JS 연동)
+   5. 프로젝트 카드 (Floating & 말풍선)
    ========================================== */
 .hero-visual-area {
   position: relative; height: 550px; width: 100%;
-  display: flex; align-items: center; justify-content: center;
   perspective: 2000px;
 }
 
 .floating-card {
-  position: absolute; width: 13rem; height: auto;
-  background: transparent; border: none; box-shadow: none;
-  overflow: visible; z-index: 30; touch-action: none; cursor: grab;
+  position: absolute;
+  /* 카드의 크기를 이미지에 맞춤 -> 마우스 반응 영역 일치 */
+  width: fit-content; 
+  z-index: 30; touch-action: none; cursor: grab;
+  display: flex; flex-direction: column; align-items: center;
   transition: transform 0.2s ease, opacity 0.5s ease;
 }
 
-.card-img { width: 40%; height: auto; display: block; pointer-events: none; }
+/* 실제 화분 이미지 크기 */
 
-.floating-1 { top: 72%; right: 34%; }
-.floating-2 { top: 67%; right: 25%; }
-.floating-3 { top: 62%; right: 16%; }
+.card-img { 
+  width: 6rem;
+  height: auto; 
+  display: block; 
+  pointer-events: none; 
+
+  /* 1. 입체감 있는 아랫면 그림자 (drop-shadow 사용) */
+  /* 수치: 가로 0, 세로 15px, 퍼짐 10px, 색상 검정 투명도 0.2 */
+  filter: drop-shadow(0 15px 10px rgba(0, 0, 0, 0.2))
+          brightness(1.05)   /* 2. 밝기 살짝 올림 */
+          saturate(1.2);    /* 3. 채도(색감) 20% 업! 훨씬 생생해짐 */
+
+  transition: all 0.3s ease;
+}
+
+/* 호버했을 때 더 생생하게 반응 */
+.floating-card:hover .card-img {
+  transform: scale(1.1) translateY(-5px); /* 위로 살짝 들리는 효과 */
+  filter: drop-shadow(0 25px 15px rgba(0, 0, 0, 0.3)) /* 그림자도 더 깊어짐 */
+          brightness(1.1)
+          saturate(1.3);
+}
+
+/* 화분 바닥에 가짜 그림자(타원형)를 따로 넣고 싶다면 이 방법도 좋아요 */
+.floating-card::before {
+  content: '';
+  position: absolute;
+  bottom: -5px; /* 화분 바로 밑 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;  /* 화분 너비보다 약간 좁게 */
+  height: 10px;
+  background: rgba(0, 0, 0, 0.15); /* 아주 연한 검정 */
+  border-radius: 50%; /* 타원형 */
+  filter: blur(5px); /* 흐릿하게 */
+  z-index: -1;
+  opacity: 0.6;
+}
+
+/* 말풍선 미리보기 */
+.preview-img {
+  position: absolute;
+  bottom: 110%; /* 화분 머리 위 배치 */
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  width: 220px; height: auto;
+  padding: 10px; background: #fff;
+  border-radius: 12px; border: 1px solid #eee;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  opacity: 0; visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: 100;
+  pointer-events: none; 
+}
+
+.preview-img::after {
+  content: ''; position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent; border-top-color: white;
+}
+
+/* 드래그 중 미리보기 숨김 */
+.floating-card.is-dragging .preview-img {
+  opacity: 0 !important; visibility: hidden !important;
+}
+
+/* 호버 효과 */
+.floating-card:hover .preview-img { 
+  opacity: 1; visibility: visible; 
+  transform: translateX(-50%) translateY(-10px); 
+}
+.floating-card:hover .card-img { transform: scale(1.1); }
+
+/* 개별 위치 설정 (이미지 보면서 조절하세요) */
+.floating-1 { bottom: -1%; right: 70%; }
+.floating-2 { bottom: -1%; right: 59%; }
+.floating-3 { bottom: -1%; right: 48%; }
 
 /* ==========================================
-   6. 스킬 섹션 & [복구] 모든 컬러
+   6. 스킬 섹션
    ========================================== */
 .skills-section { padding: 3rem 0; }
 .skill-list { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
 .skill-tag {
   padding: 0.625rem 1.5rem; border-radius: 0.75rem; font-weight: 700;
-  opacity: 0; transform: translateY(20px); transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0; transform: translateY(20px); 
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .skill-tag.active { opacity: 1; transform: translateY(0); }
 
-/* 스킬별 색상 완벽 복구 */
+/* 스킬별 색상 */
 .skill-spring { background: rgba(196, 222, 159, 0.2); color: #7dbb34; }
 .skill-django { background: rgba(157, 213, 179, 0.2); color: #3d9970; }
 .skill-react  { background: rgba(143, 205, 226, 0.2); color: #3a9bbf; }
@@ -175,4 +292,52 @@ body {
 @keyframes ping { 75%, 100% { transform: scale(3); opacity: 0; } }
 @keyframes colorPulse { 0%, 100% { border-color: #FBDA8D; } 50% { border-color: #ecc813; background: #fffdf5; } }
 
-.floating-card.is-dragging { animation: none !important; z-index: 1000 !important; cursor: grabbing; }
+/* ==========================================
+   8. 반응형 디자인
+   ========================================== */
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
+  .hero-visual-area { height: 450px; }
+  .floating-1, .floating-2, .floating-3 { right: 50%; transform: translateX(50%); }
+}
+
+
+/* 5. 호버했을 때 색감 보정 (더 쨍하게!) */
+.card-img {
+  filter: drop-shadow(0 15px 10px rgba(0, 0, 0, 0.2)) 
+          saturate(1.4)  /* 채도를 더 높임 */
+          contrast(1.1); /* 대비를 살짝 높여서 선명하게 */
+}
+
+
+/* 화분 빛남 */
+/* 기존 .card-img의 filter 설정을 유지하면서 '광채'만 덧붙입니다 */
+.card-img {
+  /* 기존에 있던 필터들을 유지하고 뒤에 노란 광채만 하나 더 붙임 */
+  filter: drop-shadow(0 15px 10px rgba(0, 0, 0, 0.2)) 
+          brightness(1.05) 
+          saturate(1.2) 
+          drop-shadow(0 0 5px rgba(251, 218, 141, 0.4)) !important;
+
+  animation: breatheGlow 3s infinite ease-in-out !important;
+}
+
+/* 호버 시에도 유나님이 설정한 채도(1.4) 등을 유지하며 광채만 강화 */
+.floating-card:hover .card-img {
+  filter: drop-shadow(0 25px 15px rgba(0, 0, 0, 0.3)) 
+          saturate(1.4) 
+          contrast(1.1) 
+          drop-shadow(0 0 15px rgba(251, 218, 141, 0.8)) !important;
+}
+
+/* 빛만 깜빡거리게 (색감 관련 필터는 고정) */
+@keyframes breatheGlow {
+  0%, 100% {
+    filter: drop-shadow(0 15px 10px rgba(0, 0, 0, 0.2)) brightness(1.05) saturate(1.2) 
+            drop-shadow(0 0 5px rgba(251, 218, 141, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 15px 10px rgba(0, 0, 0, 0.2)) brightness(1.05) saturate(1.2) 
+            drop-shadow(0 0 12px rgba(251, 218, 141, 0.6));
+  }
+}

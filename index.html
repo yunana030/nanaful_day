@@ -12,7 +12,9 @@
 </head>
 <body>
     <!-- 창문, 물뿌리개 -->
-    <div class="bg-deco-left"></div>
+    <div id="skills-toggle-btn" class="bg-deco-left">
+    <span class="bird-msg">Check Skills!</span>
+    </div>
     <div class="bg-deco-right"></div>
 
 <div class="page-wrapper">
@@ -34,11 +36,11 @@
                     <p class="hero-desc">
                         질문에서 깨달음으로 향하는 개발자 <strong>허유나</strong>입니다. 
                     </p>
-                    <div class="hero-btns">
+                    <!-- <div class="hero-btns">
                         <button id="skills-toggle-btn" class="btn-resume btn-skills-magic">
                             Check Skills
                         </button>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="hero-visual-area">
@@ -46,16 +48,23 @@
 
                     <a href="https://yunana030.github.io/port_ko/" target="_blank" class="floating-card floating-1">
                         <img src="assets/images/plant_ko.png" class="card-img">
+                        <img src="assets/images/Group 340 1.png" class="preview-img">
                     </a>
 
                     <a href="https://yunana030.github.io/port_flipit/" target="_blank" class="floating-card floating-2">
                         <img src="assets/images/plant_fl.png" class="card-img">
+                        <img src="assets/images/image 19.png" class="preview-img">
+
                     </a>
 
                     <a href="https://yunana030.github.io/port_zimpic/" target="_blank" class="floating-card floating-3">
                         <img src="assets/images/plant_zim.png" class="card-img">
+                        <img src="assets/images/Group 339 1.png" class="preview-img">
+
                     </a>
                 </div>
+
+                
             </div>
         </section>
 
@@ -87,12 +96,15 @@
 
     skillsBtn.addEventListener('click', function() {
         isOpen = !isOpen;
+        const birdMsg = this.querySelector('.bird-msg');
         const btnRect = skillsBtn.getBoundingClientRect();
         const btnCenterX = btnRect.left + btnRect.width / 2;
         const btnCenterY = btnRect.top + btnRect.height / 2;
 
         if (isOpen) {
-            this.textContent = "Close Skills";
+            // this.textContent = "Close Skills";
+            if (birdMsg) birdMsg.textContent = "Close!";
+
             skillTags.forEach((tag, index) => {
                 // [1] 시작 전 스타일 강제 초기화
                 tag.style.transition = 'none';
@@ -117,7 +129,10 @@
                 }, index * 80);
             });
         } else {
-            this.textContent = "Check Skills";
+            // this.textContent = "Check Skills";
+
+            if (birdMsg) birdMsg.textContent = "Check Skills!";
+
             // 닫을 때는 역순으로
             const reversedTags = [...skillTags].reverse();
             reversedTags.forEach((tag, index) => {
@@ -207,17 +222,6 @@
             }
         }, true);
 
-        // [움찔 함수] 현재 위치 기준으로 흔들리게 함
-        function scheduleSway() {
-            if (!card.dragData.isDragging) {
-                card.classList.add('do-sway');
-                // 핵심: 움찔할 때 현재 이동된 좌표(lastX, lastY)를 유지!
-                card.style.transform = `translate3d(${card.dragData.lastX}px, ${card.dragData.lastY}px, 0)`;
-                setTimeout(() => card.classList.remove('do-sway'), 800);
-            }
-            setTimeout(scheduleSway, Math.random() * 4000 + 4000);
-        }
-
         // 3. 🦋 나비 안착 애니메이션 (순서대로 발사)
         const dist = 2000;
         const angle = Math.random() * Math.PI * 2;
@@ -244,7 +248,6 @@
                 // [추가] 부유 효과를 시작하기 위한 클래스 추가
                 card.classList.add('final-mode'); 
                 
-                scheduleSway(); // 움찔 예약
             }, 1300);
         }, index * 300 + 500); // index를 활용해 순차적으로 날아오게 함
     });
